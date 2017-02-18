@@ -36,7 +36,24 @@ public class Board {
             activePiecePosition = new Position(4,0);
         } else {
             activePiecePosition = new Position(activePiecePosition.getX(), activePiecePosition.getY() + 1);
+            if (detectCollision()) {
+                activePiece = null;
+            }
         }
+    }
+
+    private boolean detectCollision() {
+        boolean[][] piece = activePiece.getRepresentation();
+
+        for (int x = 0; x < piece.length; x++) {
+            for (int y = 0; y < piece[x].length; y++) {
+                if (representation[x + activePiecePosition.getX()][y + activePiecePosition.getY()]) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public void setActivePiecePosition(Position activePiecePosition) {
